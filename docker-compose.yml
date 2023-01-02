@@ -14,7 +14,79 @@ services:
     ports:
       - "5432:5432"
 
-# TODO добавить сервисы
+  # TODO добавить сервисы
+    CheckH:
+          test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+          interval: 15s
+          timeout: 15s
+          retries: 10
+
+  cars_service:
+    build: RSOILab2/CarsService
+    container_name: CarsService
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+          DATA_BASE_PORT: "5432"
+          DATA_BASE_NAME: "postgres"
+          DATA_BASE_USER: "postgres"
+          DATA_BASE_PASS: "postgres"
+          DATA_BASE_HOST: "postgres"
+    ports:
+      - "8070:8070"
+
+  payment_service:
+    build: RSOILab2/PaymentService
+    container_name: PaymentService
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+          DATA_BASE_PORT: "5432"
+          DATA_BASE_NAME: "postgres"
+          DATA_BASE_USER: "postgres"
+          DATA_BASE_PASS: "postgres"
+          DATA_BASE_HOST: "postgres"
+    ports:
+      - "8050:8050"
+
+  rental_service:
+        build: RSOILab2/RentalService
+        container_name: RentalService
+        depends_on:
+          postgres:
+            condition: service_healthy
+        environment:
+          DATA_BASE_PORT: "5432"
+          DATA_BASE_NAME: "postgres"
+          DATA_BASE_USER: "postgres"
+          DATA_BASE_PASS: "postgres"
+          DATA_BASE_HOST: "postgres"
+        ports:
+          - "8060:8060"
+
+  gateway_service:
+        build: RSOILab2/GatewayService
+        container_name: GatewayService
+        depends_on:
+          postgres:
+            condition: service_healthy
+        environment:
+          DATA_BASE_PORT: "5432"
+          DATA_BASE_NAME: "postgres"
+          DATA_BASE_USER: "postgres"
+          DATA_BASE_PASS: "postgres"
+          DATA_BASE_HOST: "postgres"
+          CARS_SERVICE_HOST: "CarsService"
+          CARS_SERVICE_PORT: "8070"
+          PAYMENT_SERVICE_HOST: "PaymentService"
+          PAYMENT_SERVICE_PORT: "8050"
+          RENTAL_SERVICE_HOST: "RentalService"
+          RENTAL_SERVICE_PORT: "8060"
+
+        ports:
+          - "8080:8080"
 
 volumes:
   db-data:
