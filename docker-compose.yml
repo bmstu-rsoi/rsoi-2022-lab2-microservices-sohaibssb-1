@@ -9,19 +9,18 @@ services:
       POSTGRES_PASSWORD: "postgres"
       POSTGRES_DB: postgres
     volumes:
-      - db-data:/var/lib/postgresql/data
-      - ./postgres/:/docker-entrypoint-initdb.d/
+      - pgdata:/var/lib/postgresql/data
+      
     ports:
       - "5432:5432"
 
-  # TODO добавить сервисы
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 15s
       timeout: 15s
       retries: 10
 
-  cars_service:
+  CarsService:
     build: RSOILab2/CarsService
     container_name: CarsService
     depends_on:
@@ -36,7 +35,7 @@ services:
     ports:
       - "8070:8070"
 
-  payment_service:
+  PaymentService:
     build: RSOILab2/PaymentService
     container_name: PaymentService
     depends_on:
@@ -51,7 +50,7 @@ services:
     ports:
       - "8050:8050"
 
-  rental_service:
+  RentalService:
         build: RSOILab2/RentalService
         container_name: RentalService
         depends_on:
@@ -66,7 +65,7 @@ services:
         ports:
           - "8060:8060"
 
-  gateway_service:
+  GatewayService:
         build: RSOILab2/GatewayService
         container_name: GatewayService
         depends_on:
