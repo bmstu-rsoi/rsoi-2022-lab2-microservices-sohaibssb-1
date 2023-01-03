@@ -7,11 +7,11 @@ from Cars.DeleteCar import DeleteCar
 from Cars.Check import Check_B
 
 app = Quart(__name__)
-app.register_B(GetCarsB)
-app.register_B(GetCarB)
-app.register_B(PostCarB)
-app.register_B(DeleteCar)
-app.register_B(Check_B)
+app.register_blueprint(GetCarsB)
+app.register_blueprint(GetCarB)
+app.register_blueprint(PostCarB)
+app.register_blueprint(DeleteCar)
+app.register_blueprint(Check_B)
 
 
 def create_tables():

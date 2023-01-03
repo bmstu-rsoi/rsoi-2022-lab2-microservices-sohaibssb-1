@@ -5,6 +5,7 @@ DBU = 'DATA_BASE_USER'
 DBP = 'DATA_BASE_PASS'
 DBH = 'DATA_BASE_HOST'
 DBPO = 'DATA_BASE_PORT'
+
 pg_db = PostgresqlDatabase(
     os.getenv(DBN),
     user=os.getenv(DBU),
@@ -14,6 +15,6 @@ pg_db = PostgresqlDatabase(
 )
 
 
-class ModelC(Model):
+class BaseModel(Model):
     class Meta:
         database = pg_db

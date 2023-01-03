@@ -1,11 +1,11 @@
 import uuid
 from peewee import *
-from .ModelC import ModelC
+from .ModelC import BaseModel
 
 
-class CarsModel(ModelC):
+class CarsModel(BaseModel):
     id = IdentityField()
-    car_uid = UUIDField(default=uuid.uuid4,unique=True,editable=True)
+    car_uid = UUIDField(unique=True, null=False)
     brand = CharField(max_length=80, null=False)
     model = CharField(max_length=80, null=False)
     registration_number = CharField(max_length=20, null=False)
