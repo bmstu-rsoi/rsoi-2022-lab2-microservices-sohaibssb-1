@@ -18,7 +18,7 @@ services:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 15s
       timeout: 15s
-      retries: 10
+      retries: 2
 
   carsservice:
     build: lab2/carsservice
