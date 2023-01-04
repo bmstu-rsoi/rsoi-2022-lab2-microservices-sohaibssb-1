@@ -21,6 +21,6 @@ def create_tables():
     RentalModel.create_table()
 
 
-if __name__ == '__control__':
+if __name__ == '__main__':
     create_tables()
     app.run(host='0.0.0.0', port=8060)
