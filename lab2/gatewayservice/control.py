@@ -16,5 +16,5 @@ app.register_blueprint(postrentalbf)
 app.register_blueprint(getrentalb)
 app.register_blueprint(healthcheckb)
 
-if __name__ == '__main__':
+if __name__ == '__control__':
     app.run(host='0.0.0.0', port=8080)
